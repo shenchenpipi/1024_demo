@@ -9,6 +9,8 @@ public class Algorithm implements KeyListener {
 	JPanel panel;
 
 	boolean up, down, left, right, numFlag;
+	int winFlag=1;
+	int value = 0;
 
 	public Algorithm(JFrame frame) {
 		panel = (JPanel) frame.getContentPane();
@@ -58,9 +60,10 @@ public class Algorithm implements KeyListener {
 					sum++;
 				}
 			}
-			if (sum == 16)
-				numFlag = false;
+
 		}
+		if (sum == 16)
+			numFlag = false;
 
 	}
 
@@ -186,24 +189,41 @@ public class Algorithm implements KeyListener {
 	}
 
 	public int val() {
-
-		int value = 0;
-		for (int j = 0; j < 4; j++) {
-			for (int i = 0; i < 4; i++) {
-				if (num[i][j].getValue() ==1024) {
-					value = num[i][j].getValue();
+		
+		//int value = 0;
+		
+		if(winFlag == 1&& value == 0){
+			for(int i=0;i<4;i++)
+				for(int j=0;j<4;j++){
+					if(num[i][j].getValue() == 1024){
+						value =1;
+						winFlag = 2;
+					}
 				}
-			}
+			return value;
 		}
-
+		
+		if(winFlag == 2 &&value ==0){
+			//value =0;
+			for(int i=0;i<4;i++)
+				for(int j=0;j<4;j++){
+					if(num[i][j].getValue() == 2048){
+						value =1;
+						//winFlag = 2;
+					}
+				}
+			return value;
+		}
+		
 		return value;
+		
 	}
 
 	public void win() {
 
 		val();
-		if (numFlag == true && up == true && down == true && left == true && right == true && val() ==1024) {
-
+		if (numFlag == true && up == true && down == true && left == true && right == true && val() == 1) {
+			value = 0;
 			JOptionPane.showMessageDialog(panel, null, "YOU WIN!", JOptionPane.PLAIN_MESSAGE);
 			num[0][0].setText("RESTART!");
 			num[0][0].addMouseListener(new MouseAdapter() {
@@ -218,6 +238,14 @@ public class Algorithm implements KeyListener {
 				}
 
 			});
+			num[0][2].setText("GOON!");
+			num[0][2].addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e)
+		   	  {
+		   		  goon();
+		   		  }
+		   	  }
+		     );
 		}
 	}
 
@@ -233,7 +261,14 @@ public class Algorithm implements KeyListener {
 			setNum();
 		}
 	}
-
+	 public void goon()
+	  {
+		   for (int i = 0; i < 4; i++) 
+			   for (int j = 0; j < 4; j++) 
+			    {
+					num[i][j].setValue(num[i][j].getValue());
+			    }
+			}
 	public void keyPressed(KeyEvent e) {
 
 		switch (e.getKeyCode()) {

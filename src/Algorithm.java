@@ -4,10 +4,10 @@ import javax.swing.*;
 
 
 
-public class Algorithm implements KeyListener {
-	Num[][] num;
-	JPanel panel;
 
+public class Algorithm implements KeyListener {
+	Num num[][];
+	JPanel panel;
 	boolean up, down, left, right, numFlag;
 	int winFlag=1;
 	int value = 0;
@@ -56,7 +56,7 @@ public class Algorithm implements KeyListener {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				if (num[i][j].getValue() != 0) {
+				if (num[i][j].getValue()!= 0) {
 					sum++;
 				}
 			}
@@ -190,8 +190,6 @@ public class Algorithm implements KeyListener {
 
 	public int val() {
 		
-		//int value = 0;
-		
 		if(winFlag == 1&& value == 0){
 			for(int i=0;i<4;i++)
 				for(int j=0;j<4;j++){
@@ -204,12 +202,10 @@ public class Algorithm implements KeyListener {
 		}
 		
 		if(winFlag == 2 &&value ==0){
-			//value =0;
 			for(int i=0;i<4;i++)
 				for(int j=0;j<4;j++){
 					if(num[i][j].getValue() == 2048){
-						value =1;
-						//winFlag = 2;
+						value =2;
 					}
 				}
 			return value;
@@ -222,7 +218,8 @@ public class Algorithm implements KeyListener {
 	public void win() {
 
 		val();
-		if (numFlag == true && up == true && down == true && left == true && right == true && val() == 1) {
+		if (numFlag == true && up == true && down == true && left == true && right == true){
+			if(val() == 1) {
 			value = 0;
 			JOptionPane.showMessageDialog(panel, null, "YOU WIN!", JOptionPane.PLAIN_MESSAGE);
 			num[0][0].setText("RESTART!");
@@ -245,8 +242,26 @@ public class Algorithm implements KeyListener {
 		   		  goon();
 		   		  }
 		   	  }
-		     );
+		     );}
+			else if(val() == 2) {
+				value = 0;
+				JOptionPane.showMessageDialog(panel, null, "YOU WIN!", JOptionPane.PLAIN_MESSAGE);
+				num[0][0].setText("RESTART!");
+				num[0][0].addMouseListener(new MouseAdapter() {
+					public void mousePressed(MouseEvent e) {
+						reStart();
+					}
+				});
+				num[0][1].setText("EXIT!");
+				num[0][1].addMouseListener(new MouseAdapter() {
+					public void mousePressed(MouseEvent e) {
+						System.exit(0);
+					}
+
+				});
+				
 		}
+	}
 	}
 
 	public void reStart() {

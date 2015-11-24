@@ -66,6 +66,9 @@ public class Num extends JLabel
     case 1024:
       setBackground(new Color(239, 199, 57));
       break;
+    case 2048:
+        setBackground(new Color(239, 199, 0));
+        break;
    
       }
   }

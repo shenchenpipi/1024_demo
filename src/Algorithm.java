@@ -273,8 +273,8 @@ public class Algorithm implements KeyListener {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++)
 				num[i][j].setValue(0);
-			setNum();
 		}
+		setNum();
 	}
 	 public void goon()
 	  {

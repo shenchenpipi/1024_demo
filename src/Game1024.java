@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Game1024 extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	public Game1024()
+	public Game1024() 
 	{
 	this.setVisible(true);
     setTitle("1024");
